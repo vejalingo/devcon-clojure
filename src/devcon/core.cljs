@@ -25,8 +25,7 @@
   [:select {:class "form-control" :id "watch-make" :on-change #(reset! watch-make (-> % .-target .-value))}
     [:option {:value "swatch classic" :selected "selected"} "Swatch classic"]
     [:option {:value "rolex gold"} "Rolex gold"]
-    [:option {:value "swatch sport"} "Swatch sport"]
-  ])
+    [:option {:value "swatch sport"} "Swatch sport"]])
 
 (defn warranty-input []
   [:select {:class "form-control" :id "watch-warranty" :on-change #(reset! watch-warranty (-> % .-target .-value))}
@@ -40,21 +39,20 @@
           :on-change #(reset! the-price (-> % .-target .-value))}])
 
 (defn watch-form []
-[:form
-  [:div.form-group
-    [:label (str "Make: " @watch-make)]
-    [make-input]
-    [:label (str "Warranty: " @watch-warranty " years")]
-    [warranty-input]
-    [:label (str "Price Min: R " @watch-price-low ".00")]
-    [price-slider watch-price-low]
-    [:label (str "Price Max: R " @watch-price-high ".00")]
-    [price-slider watch-price-high]
-    ]])
+  [:form
+    [:div.form-group
+      [:label (str "Make: " @watch-make)]
+      [make-input]
+      [:label (str "Warranty: " @watch-warranty " years")]
+      [warranty-input]
+      [:label (str "Price Min: R " @watch-price-low ".00")]
+      [price-slider watch-price-low]
+      [:label (str "Price Max: R " @watch-price-high ".00")]
+      [price-slider watch-price-high]]])
 
 ;; query watches logic
 (defn query-watches []
-  (->> watches-arr
+  (->> watches-arr 
     (filter (by-make @watch-make))
     (filter (by-warranty @watch-warranty))
     (filter (by-price @watch-price-low @watch-price-high))))
@@ -75,10 +73,8 @@
             [:li "..........."]]
           [:button.btn.btn-lg.btn-block.btn-outline-primary
             {:type "button"}
-            "Purchase"]]]
-        )
-    )])
-
+            "Purchase"]]]))])
+  
 (defn home-page []
   [:div [:h2 "Devcon Watch finder"]
     [watch-form]
@@ -88,8 +84,8 @@
 
 ;; -------------------------
 ;; Initialize app
-(defn mount-root [])
-(r/render [home-page] (.getElementById js/document "app"))
+(defn mount-root []
+(r/render [home-page] (.getElementById js/document "app")))
 
-(defn init! [])
-(mount-root)
+(defn init! []
+(mount-root))
